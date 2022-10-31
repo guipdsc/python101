@@ -55,7 +55,7 @@ def test_check_num_in_range(numbers, result):
     "string,result",
     [("ABBA", (4, 0)), ("The quick Brow Fox", (3, 12)), ("Hello World!", (2, 8))],
 )
-def test_get_num_letter_cases(string, result):
+def test_get_num_cases(string, result):
     assert exercises.get_num_cases(string) == result
 
 
