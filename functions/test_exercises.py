@@ -55,7 +55,7 @@ def test_check_num_in_range(numbers, result):
     "string,result",
     [("ABBA", (4, 0)), ("The quick Brow Fox", (3, 12)), ("Hello World!", (2, 8))],
 )
-def test_get_num_letter_cases(string, result):
+def test_get_num_cases(string, result):
     assert exercises.get_num_cases(string) == result
 
 
@@ -87,7 +87,7 @@ def test_get_even(numbers, result):
 @pytest.mark.parametrize(
     "number,result", [(6, True), (7, False), (496, True), (8, False)]
 )
-def test_check_prime(number, result):
+def test_check_perfect(number, result):
     assert exercises.check_perfect(number) == result
 
 
@@ -117,7 +117,7 @@ def test_get_pascal_rows():
     "sentence,result",
     [("The quick brown fox jumps over the lazy dog", True), ("not all", False)],
 )
-def test_check_palindrome(sentence, result):
+def test_check_pangram(sentence, result):
     assert exercises.check_pangram(sentence) == result
     assert (
         exercises.check_pangram(
