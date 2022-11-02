@@ -365,8 +365,7 @@ def reorder_hyphen_sequence(string):
     :return:
     """
     # INSERT YOUR CODE HERE
-    arr = string.split("-")
-    return "-".join(sorted(arr))
+    return "-".join(sorted(string.split("-")))
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_reorder_hyphen_sequence
