@@ -17,7 +17,8 @@ def get_max_of_three(x, y, z):
     :param z:
     :return:
     """
-    # INSERT YOUR CODE HERE
+    return max(x,y,z)
+
     #
     # Run this command to test your implementation:
     #
@@ -35,7 +36,7 @@ def get_sum_of_list(num_list):
     :return:
     """
     # INSERT YOUR CODE HERE
-    #
+    return sum(num_list)
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_get_sum_of_list
@@ -57,8 +58,10 @@ def get_prod_of_list(num_list, absolute=False):
     :param absolute: Use absulute values
     :return:
     """
-    # INSERT YOUR CODE HERE
-    #
+    # INSERT YOUR CODE HERE 
+    
+   return abs(prod) if absolute else prod
+        
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_get_prod_of_list
@@ -75,7 +78,7 @@ def get_reversed_string(string):
     :return:
     """
     # INSERT YOUR CODE HERE
-    #
+    return string[::-1]
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_get_reversed_string
@@ -94,7 +97,15 @@ def get_factorial(number):
     :raises NotImplementedError: If number is negative
     """
     # INSERT YOUR CODE HERE
-    #
+    fact = 1
+    if number >= 0:
+        for val in range(1,number+1):
+            fact = fact * val
+    else:
+        raise NotImplementedError
+    
+    return fact
+
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_get_factorial
@@ -113,7 +124,7 @@ def check_num_in_range(number, range_min, range_max):
     :return:
     """
     # INSERT YOUR CODE HERE
-    #
+    return range_min < number < range_max
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_check_num_in_range
@@ -131,7 +142,17 @@ def get_num_cases(string):
     :return:
     """
     # INSERT YOUR CODE HERE
-    #
+
+    uppernumber = 0
+    lowernumber = 0
+    string=string.replace(" ","")
+    for letter in string:
+        if letter.isupper():
+            uppernumber += 1
+        elif letter.islower():
+            lowernumber += 1
+    
+    return uppernumber,lowernumber
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_get_num_cases
@@ -149,7 +170,10 @@ def get_unique_item_list(original_list):
     :return:
     """
     # INSERT YOUR CODE HERE
-    #
+
+    big_list=set(original_list)
+    
+    return list(big_list)
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_get_unique_item_list
@@ -174,7 +198,19 @@ def check_prime(number):
     # INSERT YOUR CODE HERE
     #
     # Run this command to test your implementation:
-    #
+
+    check = False
+
+    for i in range(2,number):
+        if number% i == 0:
+            check = False
+            break
+        else:
+            check = True
+            continue
+    
+    return check
+        
     # pytest test_exercises.py::test_check_prime
 
 
@@ -189,7 +225,7 @@ def get_even(*args):
     :return:
     """
     # INSERT YOUR CODE HERE
-    #
+    return [x for x in args if x % 2 ==0]
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_get_even
@@ -218,7 +254,16 @@ def check_perfect(number):
     :return:
     """
     # INSERT YOUR CODE HERE
-    #
+    positive_div = []
+
+    for i in range(1,number+1):
+        if number%i == 0:
+            positive_div.append(i)
+        else:
+            continue
+    return sum(positive_div)/2 == number
+
+
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_check_perfect
@@ -240,7 +285,10 @@ def check_palindrome(string):
     :return:
     """
     # INSERT YOUR CODE HERE
-    #
+    string = string.replace(" ","")
+    backwards = string[::-1]
+    return string == backwards
+
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_check_palindrome
@@ -258,7 +306,7 @@ def check_palindrome(string):
 #      | 1 | 4 | 6 | 4 | 1 |
 #
 #     Example:
-#     5 -> [[1], [1, 1], [1, 2, 1], [1, 3, 3, 1], [1, 4, 6, 4, 1]]
+#     6 -> [[1],[1,1], [1, 2, 1], [1, 3, 3, 1], [1, 4, 6, 4, 1], [1, 5, 10, 10, 5, 1]]
 def get_pascal_rows(number):
     """
     Get the first `number` of rows of pascal triangle
@@ -267,7 +315,21 @@ def get_pascal_rows(number):
     :return:
     """
     # INSERT YOUR CODE HERE
-    #
+    triangle = [[1]]
+    current_line = []
+    for line in range(1,number):
+        current_line.append(1)
+        print("Print linha: ",line)
+        for col in range(1,line+1):
+            val1 = get_factorial(line)
+            val2 = get_factorial(col)
+            calculation = val1 // (val2 * get_factorial((line - col)))
+            current_line.append(calculation)
+        triangle.append(current_line)
+        current_line=[]
+    return triangle
+
+
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_get_pascal_rows
@@ -289,12 +351,31 @@ def get_pascal_rows(number):
 def check_pangram(input_str, **kwargs):
     """
     Check if a given string is a pangram
-
+    
     :param input_str:
     :return:
     """
     # INSERT YOUR CODE HERE
-    #
+    check = False
+    alphabet="abcdefghijklmnopqrstuvxyz"
+    input_str = input_str.lower()
+    value = [i for i in kwargs.keys() if kwargs[i]==False]
+    print(value)
+    for i in value:
+        alphabet = alphabet.replace(i,"")
+
+    print(alphabet)
+
+    for letter in alphabet:
+        if letter in input_str:
+            check = True
+            continue
+        else:
+            check = False
+            break
+
+    return check
+            
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_check_pangram
@@ -313,7 +394,11 @@ def reorder_hyphen_sequence(string):
     :return:
     """
     # INSERT YOUR CODE HERE
-    #
+    text=string.split("-")
+    liste=sorted(text)
+    textout = "-".join(liste)
+    return textout
+    # return "-".join(sorted(string.split("-"))) #ONELINE
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_reorder_hyphen_sequence
@@ -334,7 +419,10 @@ def squared_nums(without_odds=False):
     :return:
     """
     # INSERT YOUR CODE HERE
-    #
+    l=[i**2 for i in range(1,31)]
+    return list(filter(lambda x: x % 2 == 0, l)) if without_odds else l
+                
+    
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_squared_nums
@@ -356,7 +444,9 @@ def make_bold(fn):
     :param fn: Function to be wrapped
     :return:
     """
-    # INSERT YOUR CODE HERE
+    def wrapper():
+        return f"<b>{fn()}</b>"
+    return wrapper
 
 
 # 17.2. italic -> <i>...</i>
@@ -367,7 +457,9 @@ def make_italic(fn):
     :param fn: Function to be wrapped
     :return:
     """
-    # INSERT YOUR CODE HERE
+    def wrapper():
+        return f"<i>{fn()}</i>"
+    return wrapper
 
 
 # 17.3. underline -> <u>...</u>
@@ -378,11 +470,18 @@ def make_underline(fn):
     :param fn: Function to be wrapped
     :return:
     """
-    # INSERT YOUR CODE HERE
+    def wrapper():
+        return f"<u>{fn()}</u>"
+    return wrapper
 
 
 # 17.4. Define a function that will use the decorators created previously
-# INSERT YOUR CODE HERE
+@make_bold
+@make_italic
+@make_underline
+def func():
+    return "Word"
+
 
 # Run this command to test your decorators:
 #
