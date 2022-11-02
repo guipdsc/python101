@@ -386,9 +386,10 @@ def squared_nums(without_odds=False):
     :return:
     """
     # INSERT YOUR CODE HERE
+    squared = [x**2 for x in range(1,31)]
     if without_odds:
-        return [x**2 for x in range(1,31) if x**2 % 2 == 0]
-    return [x**2 for x in range(1,31)]
+        return [x for x in squared if x% 2 == 0]
+    return squared
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_squared_nums
