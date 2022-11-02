@@ -51,13 +51,10 @@ def get_prod_of_list(num_list, absolute=False):
     :param absolute: Use absulute values
     :return:
     """
-    product =  1
+    for num in num_list:
+        product *= num
     if absolute :
-        for num in num_list:
-            product *= abs(num)
-    else:
-        for num in num_list:
-            product *= num
+            product = abs(product)
     return product
     # pytest test_exercises.py::test_get_prod_of_list
 
