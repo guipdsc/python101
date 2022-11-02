@@ -255,7 +255,7 @@ def check_perfect(number):
     """
     # INSERT YOUR CODE HERE
     divs = [x for x in range(1,number) if number%x==0]
-    if sum(divs) == number and (sum(divs)+number)/2 == number:
+    if sum(divs) == number:
         return True
     return False
     # Run this command to test your implementation:
