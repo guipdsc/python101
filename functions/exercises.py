@@ -3,7 +3,7 @@ Python 101 - CI Academy 2022
 
 Function exercises
 """
-
+from math import factorial
 
 # 1. Write a Python function to find the Max of three numbers
 #
@@ -18,7 +18,17 @@ def get_max_of_three(x, y, z):
     :return:
     """
     # INSERT YOUR CODE HERE
-    #
+    a = x
+    b = 0
+    while b < 2:
+        if a < y:
+            a = y
+        else:
+            if a < z:
+                a = z 
+        b = b+1
+    return (a)
+
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_get_max_of_three
@@ -35,7 +45,8 @@ def get_sum_of_list(num_list):
     :return:
     """
     # INSERT YOUR CODE HERE
-    #
+    soma = sum(num_list)
+    return (soma)
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_get_sum_of_list
@@ -58,7 +69,14 @@ def get_prod_of_list(num_list, absolute=False):
     :return:
     """
     # INSERT YOUR CODE HERE
-    #
+    if absolute == True:
+        num_list = [abs(ele) for ele in num_list]
+
+    m = 1
+    for i in num_list:
+        m = m * i 
+    return (m)
+
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_get_prod_of_list
@@ -75,7 +93,8 @@ def get_reversed_string(string):
     :return:
     """
     # INSERT YOUR CODE HERE
-    #
+    inver = string [::-1]
+    return inver
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_get_reversed_string
@@ -94,7 +113,16 @@ def get_factorial(number):
     :raises NotImplementedError: If number is negative
     """
     # INSERT YOUR CODE HERE
-    #
+    if number < 0:
+        raise NotImplementedError
+    else:
+        i=1
+        n=1
+        while i < (number+1):
+            n = n * i
+            i=i+1
+    return (n)
+    
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_get_factorial
@@ -113,7 +141,10 @@ def check_num_in_range(number, range_min, range_max):
     :return:
     """
     # INSERT YOUR CODE HERE
-    #
+    if number > range_min and number < range_max:
+        return (True)
+    else:
+        return(False)
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_check_num_in_range
@@ -131,7 +162,17 @@ def get_num_cases(string):
     :return:
     """
     # INSERT YOUR CODE HERE
-    #
+    m=0
+    n=0
+    for i in string:
+       
+        if i.isupper():
+            m = m + 1
+        elif i.islower():
+            n = n + 1
+        else:
+            m=m
+    return (m,n)
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_get_num_cases
@@ -149,6 +190,15 @@ def get_unique_item_list(original_list):
     :return:
     """
     # INSERT YOUR CODE HERE
+    new_list =[]
+    a = int
+    for i in original_list:
+        if i == a:
+            continue
+        else:
+            new_list.append(i)
+        a=i
+        return new_list
     #
     # Run this command to test your implementation:
     #
@@ -172,7 +222,16 @@ def check_prime(number):
     :return:
     """
     # INSERT YOUR CODE HERE
-    #
+    i = 1
+    s = 0
+    while i < (number+1):
+        if number % i == 0:
+            s = s + 1
+        i = i + 1
+    if s == 2:
+        return True
+    else:
+        return False
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_check_prime
@@ -189,7 +248,13 @@ def get_even(*args):
     :return:
     """
     # INSERT YOUR CODE HERE
-    #
+    num_list=[]
+    for i in args:
+        if i % 2 == 0:
+            num_list.append(i)
+    return (num_list)
+            
+            
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_get_even
@@ -218,6 +283,17 @@ def check_perfect(number):
     :return:
     """
     # INSERT YOUR CODE HERE
+    n=0
+    i=1
+    while i < (number+1):
+        if number % i == 0:
+            n = n + i
+        i = i + 1
+    n = n - number
+    if n == number:
+        return True
+    else:
+        return False
     #
     # Run this command to test your implementation:
     #
@@ -240,7 +316,12 @@ def check_palindrome(string):
     :return:
     """
     # INSERT YOUR CODE HERE
-    #
+    string = string.replace(" ","")
+    rev = string [::-1]
+    if rev == string:
+        return True
+    else: 
+        return False
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_check_palindrome
@@ -267,7 +348,15 @@ def get_pascal_rows(number):
     :return:
     """
     # INSERT YOUR CODE HERE
-    #
+    val = []
+    for i in range(number):
+        aux = []
+        for j in range(i+1):
+            
+            aux.append(factorial(i)//(factorial(j)*factorial(i-j)))
+        val.append(aux)
+
+    return val
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_get_pascal_rows
@@ -294,7 +383,23 @@ def check_pangram(input_str, **kwargs):
     :return:
     """
     # INSERT YOUR CODE HERE
-    #
+    alphabet_low = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+    test = []
+    for key in kwargs.keys():
+        if kwargs[key] == False:
+            test.append(key)
+
+    for i in input_str:
+        for a in alphabet_low:
+            if i == a and a not in test:
+                test.append(a)
+    test = sorted(test)
+
+    if test == alphabet_low:
+        return(True)
+    else:
+        return (False)
+    
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_check_pangram
@@ -313,7 +418,10 @@ def reorder_hyphen_sequence(string):
     :return:
     """
     # INSERT YOUR CODE HERE
-    #
+    string = string.split('-')
+    string = sorted(string)
+    string = '-'.join(string)
+    return (string)
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_reorder_hyphen_sequence
@@ -334,7 +442,18 @@ def squared_nums(without_odds=False):
     :return:
     """
     # INSERT YOUR CODE HERE
-    #
+    a=0
+    number = list(range(1,31))
+    number_sqr =[]
+    for i in number:
+        a=i*i
+        number_sqr.append(a)
+    if without_odds == True:
+        for a in number_sqr:
+            if a % 2 != 0:
+                number_sqr.remove(a)
+    return (number_sqr)
+                
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_squared_nums
@@ -357,7 +476,10 @@ def make_bold(fn):
     :return:
     """
     # INSERT YOUR CODE HERE
-
+    def wrapper():
+        b = '<b>'+fn()+'</b>'
+        return b
+    return wrapper
 
 # 17.2. italic -> <i>...</i>
 def make_italic(fn):
@@ -368,8 +490,10 @@ def make_italic(fn):
     :return:
     """
     # INSERT YOUR CODE HERE
-
-
+    def wrapper(): 
+        i = '<i>'+fn()+'</i>'
+        return i
+    return wrapper
 # 17.3. underline -> <u>...</u>
 def make_underline(fn):
     """
@@ -379,10 +503,20 @@ def make_underline(fn):
     :return:
     """
     # INSERT YOUR CODE HERE
+    def wrapper():
+        u = '<u>'+fn()+'</u>'
+        return u
+    return wrapper
 
 
 # 17.4. Define a function that will use the decorators created previously
 # INSERT YOUR CODE HERE
+
+@make_bold
+@make_italic
+@make_underline
+def hello_tiago():
+    return 'Hello Tiago'
 
 # Run this command to test your decorators:
 #
