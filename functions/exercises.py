@@ -279,9 +279,7 @@ def check_palindrome(string):
     :return:
     """
     # INSERT YOUR CODE HERE
-    if string.replace(" ","") == string.replace(" ","")[::-1]:
-        return True
-    return False
+    return string.replace(" ","") == string.replace(" ","")[::-1]
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_check_palindrome
