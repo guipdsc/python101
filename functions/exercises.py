@@ -448,7 +448,7 @@ def squared_nums(without_odds=False):
     listafinal= lista
 
     if without_odds == True:
-        listafinal = filter(lambda x: x % 2 == 0, lista)
+        listafinal = list(filter(lambda x: x % 2 == 0, lista))
 
     return listafinal
                 
