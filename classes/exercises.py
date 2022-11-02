@@ -3,7 +3,7 @@ Python 101 - CI Academy 2022
 
 Class exercise
 """
-
+import numpy as np
 
 # 1.1. Create a class, `Triangle`.
 #
@@ -26,3 +26,30 @@ Class exercise
 #    because we already know that all of them should be 60.
 
 # 2.1. Create a `Equilateral` class method that receives a side length and calculates the triangle area.
+class Triangle:
+    def __init__(self, ang1,ang2, ang3):
+        self.ang1 = ang1
+        self.ang2 = ang2
+        self.ang3 = ang3
+        self.number_of_sides = 3
+    
+    def check_angles(self):
+        if self.ang1 + self.ang2 + self.ang3 == 180:
+            return True
+        return False
+    
+    def calc_side_lengths(self, perimiter):
+        den = np.sin(np.deg2rad(self.ang1)) + np.sin(np.deg2rad(self.ang2)) + np.sin(np.deg2rad(self.ang3))
+        k = perimiter/den
+        sides = [k*np.sin(np.deg2rad(self.ang1)),k*np.sin(np.deg2rad(self.ang2)),k*np.sin(np.deg2rad(self.ang3))]
+        return {round(s,2) for s in sides}
+
+
+class Equilateral(Triangle):
+    def __init__(self):
+        self.ang1 = 60
+        self.ang2 = 60
+        self.ang3 = 60
+
+    def get_area(self, side):
+        return round((side**2 * np.sqrt(3)) / 4, 2)
