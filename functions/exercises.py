@@ -58,15 +58,9 @@ def get_prod_of_list(num_list, absolute=False):
     :param absolute: Use absulute values
     :return:
     """
-    # INSERT YOUR CODE HERE
-    prod=1
-    for val in num_list:
-        prod = prod * val
-
-    if absolute:
-        prod = abs(prod)
+    # INSERT YOUR CODE HERE 
     
-    return prod
+   return abs(prod) if absolute else prod
         
     # Run this command to test your implementation:
     #
@@ -130,10 +124,7 @@ def check_num_in_range(number, range_min, range_max):
     :return:
     """
     # INSERT YOUR CODE HERE
-    if range_min < number < range_max:
-        return True
-    else:
-        return False
+    return range_min < number < range_max
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_check_num_in_range
@@ -154,12 +145,14 @@ def get_num_cases(string):
 
     uppernumber = 0
     lowernumber = 0
-
+    string=string.replace(" ","")
     for letter in string:
         if letter.isupper():
             uppernumber += 1
-        else:
+        elif letter.islower():
             lowernumber += 1
+    
+    return uppernumber,lowernumber
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_get_num_cases
@@ -178,14 +171,9 @@ def get_unique_item_list(original_list):
     """
     # INSERT YOUR CODE HERE
 
-    big_list=[]
-
-    for num in original_list:
-        if num in big_list:
-            continue
-        else:
-            big_list.append(num)
-    return big_list
+    big_list=set(original_list)
+    
+    return list(big_list)
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_get_unique_item_list
@@ -237,14 +225,7 @@ def get_even(*args):
     :return:
     """
     # INSERT YOUR CODE HERE
-    list_out=[]
-
-    for val in args:
-        if val%2 == 0:
-            list_out.append(val)
-        else:
-            continue
-    return list_out
+    return [x for x in args if x % 2 ==0]
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_get_even
@@ -280,10 +261,8 @@ def check_perfect(number):
             positive_div.append(i)
         else:
             continue
-    if sum(positive_div)/2 == number:
-        return True
-    else:
-        return False
+    return sum(positive_div)/2 == number
+
 
     # Run this command to test your implementation:
     #
@@ -308,10 +287,8 @@ def check_palindrome(string):
     # INSERT YOUR CODE HERE
     string = string.replace(" ","")
     backwards = string[::-1]
-    if string == backwards:
-        return True
-    else:
-        return False
+    return string == backwards
+
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_check_palindrome
@@ -381,7 +358,7 @@ def check_pangram(input_str, **kwargs):
     # INSERT YOUR CODE HERE
     check = False
     alphabet="abcdefghijklmnopqrstuvxyz"
-
+    input_str = input_str.lower()
     value = [i for i in kwargs.keys() if kwargs[i]==False]
     print(value)
     for i in value:
@@ -396,7 +373,7 @@ def check_pangram(input_str, **kwargs):
         else:
             check = False
             break
-            
+
     return check
             
     # Run this command to test your implementation:
@@ -421,6 +398,7 @@ def reorder_hyphen_sequence(string):
     liste=sorted(text)
     textout = "-".join(liste)
     return textout
+    # return "-".join(sorted(string.split("-"))) #ONELINE
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_reorder_hyphen_sequence
@@ -441,16 +419,8 @@ def squared_nums(without_odds=False):
     :return:
     """
     # INSERT YOUR CODE HERE
-    lista=[]
-    listafinal=[]
-    for i in range(1,31):
-        lista.append(i**2)
-    listafinal= lista
-
-    if without_odds == True:
-        listafinal = list(filter(lambda x: x % 2 == 0, lista))
-
-    return listafinal
+    l=[i**2 for i in range(1,31)]
+    return list(filter(lambda x: x % 2 == 0, l)) if without_odds else l
                 
     
     # Run this command to test your implementation:
