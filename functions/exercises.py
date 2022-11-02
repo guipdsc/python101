@@ -7,6 +7,7 @@ Function exercises
 from math import factorial
 
 
+
 # 1. Write a Python function to find the Max of three numbers
 #
 #    Example: (1, 2, 3) -> 3
@@ -401,6 +402,7 @@ def make_bold(fn):
     :param fn: Function to be wrapped
     :return:
     """
+    aux = ''
     def wrapper():
         aux = func()
     return f'<b>{aux}<b>'
@@ -414,6 +416,7 @@ def make_italic(fn):
     :param fn: Function to be wrapped
     :return:
     """
+    aux = ''
     def wrapper():
         aux = func()
     return f'<i>{aux}<i>'
@@ -427,15 +430,16 @@ def make_underline(fn):
     :param fn: Function to be wrapped
     :return:
     """
+    aux = ''
     def wrapper():
         aux = func()
     return f'<u>{aux}<u>'
 
 
 # 17.4. Define a function that will use the decorators created previously
-@exercises.make_bold
-@exercises.make_italic
-@exercises.make_underline
+@make_bold
+@make_italic
+@make_underline
 def use_decorators():
     return "Hello World!"
     
