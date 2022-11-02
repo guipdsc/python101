@@ -8,6 +8,12 @@ Function exercises
 # 1. Write a Python function to find the Max of three numbers
 #
 #    Example: (1, 2, 3) -> 3
+from cgitb import reset
+from curses.ascii import isalpha, islower, isspace, isupper
+from dataclasses import replace
+import re
+
+
 def get_max_of_three(x, y, z):
     """
     Return the Max out of three given numbers
@@ -17,6 +23,7 @@ def get_max_of_three(x, y, z):
     :param z:
     :return:
     """
+    return max([x,y,z])
     # INSERT YOUR CODE HERE
     #
     # Run this command to test your implementation:
@@ -34,6 +41,7 @@ def get_sum_of_list(num_list):
     :param num_list: List of numbers
     :return:
     """
+    return sum(num_list)
     # INSERT YOUR CODE HERE
     #
     # Run this command to test your implementation:
@@ -57,6 +65,20 @@ def get_prod_of_list(num_list, absolute=False):
     :param absolute: Use absulute values
     :return:
     """
+    def prod_of_list_no_abs(num_list):
+        res=1
+        for i in num_list:
+            res*=i
+        return res
+    def prod_of_list_with_abs(num_list):
+        res=1
+        for i in num_list:
+            res*=abs(i)
+        return res
+    if (absolute):
+        return prod_of_list_with_abs(num_list)
+    else:
+        return prod_of_list_no_abs(num_list)
     # INSERT YOUR CODE HERE
     #
     # Run this command to test your implementation:
@@ -74,6 +96,7 @@ def get_reversed_string(string):
     :param string: String to be reversed
     :return:
     """
+    return string[::-1]
     # INSERT YOUR CODE HERE
     #
     # Run this command to test your implementation:
@@ -93,6 +116,14 @@ def get_factorial(number):
     :return:
     :raises NotImplementedError: If number is negative
     """
+    if (number == 0):
+        return 1
+    if (number < 0):
+        raise NotImplementedError("Negative number!")
+    res = 1
+    for i in range(1,number+1):
+        res*=i
+    return res
     # INSERT YOUR CODE HERE
     #
     # Run this command to test your implementation:
@@ -112,6 +143,7 @@ def check_num_in_range(number, range_min, range_max):
     :param range_max:
     :return:
     """
+    return number in range(range_min,range_max)
     # INSERT YOUR CODE HERE
     #
     # Run this command to test your implementation:
@@ -130,6 +162,16 @@ def get_num_cases(string):
     :param string:
     :return:
     """
+    up=0
+    down=0
+    for i in range(len(string)):
+        if (not isalpha(string[i])):
+            continue
+        if (isupper(string[i])):
+            up+=1
+        else:
+            down+=1
+    return(up,down)
     # INSERT YOUR CODE HERE
     #
     # Run this command to test your implementation:
@@ -148,6 +190,7 @@ def get_unique_item_list(original_list):
     :param original_list:
     :return:
     """
+    return list(set(original_list))
     # INSERT YOUR CODE HERE
     #
     # Run this command to test your implementation:
@@ -171,6 +214,12 @@ def check_prime(number):
     :param number:
     :return:
     """
+    if number <= 1:
+        return False
+    for i in range(2,number):
+        if (number%i == 0):
+            return False
+    return True
     # INSERT YOUR CODE HERE
     #
     # Run this command to test your implementation:
@@ -188,6 +237,7 @@ def get_even(*args):
     :param num_list:
     :return:
     """
+    return [num for num in args if num%2==0]
     # INSERT YOUR CODE HERE
     #
     # Run this command to test your implementation:
@@ -217,6 +267,11 @@ def check_perfect(number):
     :param number:
     :return:
     """
+    res = 0
+    for i in range(1,number):
+        if (number%i == 0):
+            res+=i
+    return res == number
     # INSERT YOUR CODE HERE
     #
     # Run this command to test your implementation:
@@ -239,6 +294,8 @@ def check_palindrome(string):
     :param string:
     :return:
     """
+    string2 = [n for n in string if not isspace(n)]
+    return string2==string2[::-1]
     # INSERT YOUR CODE HERE
     #
     # Run this command to test your implementation:
@@ -266,6 +323,24 @@ def get_pascal_rows(number):
     :param number:
     :return:
     """
+    def factorial(n):
+        if (n == 0):
+            return 1
+        if (n < 0):
+            raise NotImplementedError("Negative number!")
+        res = 1
+        for i in range(1,n+1):
+            res*=i
+        return res
+    def nCr(m,r):
+        return ((factorial(m))//((factorial(r))*(factorial(m-r))))
+    resFinal = [[1],[1,1]]
+    for i in range(2,number):
+        temp = [1]
+        for j in range(1,i+1):
+            temp.append(nCr(i,j))
+        resFinal.append(temp)
+    return resFinal
     # INSERT YOUR CODE HERE
     #
     # Run this command to test your implementation:
@@ -293,6 +368,17 @@ def check_pangram(input_str, **kwargs):
     :param input_str:
     :return:
     """
+    input_str = [n for n in input_str.lower() if n.isalpha()]
+    Alph="qwertyuiopasdfghjklzxcvbnm"
+    for key,value in kwargs.items():
+        if not value:
+            Alph = Alph.replace(key,"")
+            if key in input_str:
+                input_str = input_str.remove(key)
+    for i in Alph:
+        if not i in input_str:
+            return False
+    return True
     # INSERT YOUR CODE HERE
     #
     # Run this command to test your implementation:
@@ -312,6 +398,9 @@ def reorder_hyphen_sequence(string):
     :param string:
     :return:
     """
+    string = string.split("-")
+    string.sort()
+    return "-".join(string)
     # INSERT YOUR CODE HERE
     #
     # Run this command to test your implementation:
@@ -333,6 +422,10 @@ def squared_nums(without_odds=False):
     :param without_odds: If True Odd numbers are not returned
     :return:
     """
+    if without_odds:
+        return [n**2 for n in range(1,31) if n%2==0]
+    else:
+        return[n**2 for n in range(1,31)]
     # INSERT YOUR CODE HERE
     #
     # Run this command to test your implementation:
@@ -356,6 +449,9 @@ def make_bold(fn):
     :param fn: Function to be wrapped
     :return:
     """
+    def wrapper():
+        return (f"<b>{fn()}</b>")
+    return wrapper
     # INSERT YOUR CODE HERE
 
 
@@ -367,6 +463,9 @@ def make_italic(fn):
     :param fn: Function to be wrapped
     :return:
     """
+    def wrapper():
+        return (f"<i>{fn()}</i>")
+    return wrapper
     # INSERT YOUR CODE HERE
 
 
@@ -378,12 +477,20 @@ def make_underline(fn):
     :param fn: Function to be wrapped
     :return:
     """
+    def wrapper():
+        return (f"<u>{fn()}</u>")
+    return wrapper
     # INSERT YOUR CODE HERE
 
 
 # 17.4. Define a function that will use the decorators created previously
 # INSERT YOUR CODE HERE
+def decorators():
+    print ("Hello world!")
 
+decorators_bold = make_bold(decorators)
+decorators_italic = make_italic(decorators)
+decorators_underline = make_underline(decorators)
 # Run this command to test your decorators:
 #
 # pytest test_exercises.py::test_decorators
