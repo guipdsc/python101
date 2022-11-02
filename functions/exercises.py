@@ -18,6 +18,7 @@ def get_max_of_three(x, y, z):
     :return:
     """
     # INSERT YOUR CODE HERE
+    return max([x,y,z])
     #
     # Run this command to test your implementation:
     #
@@ -35,6 +36,7 @@ def get_sum_of_list(num_list):
     :return:
     """
     # INSERT YOUR CODE HERE
+    return sum(num_list)
     #
     # Run this command to test your implementation:
     #
@@ -58,6 +60,14 @@ def get_prod_of_list(num_list, absolute=False):
     :return:
     """
     # INSERT YOUR CODE HERE
+    output = 1
+    for x in num_list:
+        output *= x
+    
+    if absolute:
+        return abs(output)
+    return output
+
     #
     # Run this command to test your implementation:
     #
@@ -75,6 +85,7 @@ def get_reversed_string(string):
     :return:
     """
     # INSERT YOUR CODE HERE
+    return string[::-1]
     #
     # Run this command to test your implementation:
     #
@@ -94,6 +105,12 @@ def get_factorial(number):
     :raises NotImplementedError: If number is negative
     """
     # INSERT YOUR CODE HERE
+    if number < 0:
+        raise NotImplementedError
+    n=1
+    for x in range(1,number+1):
+        n *= x
+    return n
     #
     # Run this command to test your implementation:
     #
@@ -113,6 +130,9 @@ def check_num_in_range(number, range_min, range_max):
     :return:
     """
     # INSERT YOUR CODE HERE
+    if range_min < number < range_max:
+        return True
+    return False
     #
     # Run this command to test your implementation:
     #
@@ -131,6 +151,13 @@ def get_num_cases(string):
     :return:
     """
     # INSERT YOUR CODE HERE
+    d = {"ups":0,"dwns":0}
+    for c in string:
+        if c.isupper():
+            d["ups"] += 1
+        elif c.islower():
+            d["dwns"] += 1
+    return (d["ups"],d["dwns"])
     #
     # Run this command to test your implementation:
     #
@@ -149,6 +176,7 @@ def get_unique_item_list(original_list):
     :return:
     """
     # INSERT YOUR CODE HERE
+    return list(set(original_list))
     #
     # Run this command to test your implementation:
     #
@@ -172,6 +200,13 @@ def check_prime(number):
     :return:
     """
     # INSERT YOUR CODE HERE
+    from math import sqrt
+    if number <= 1:
+        return False
+    for i in range(2,int(sqrt(number))+1):
+        if number % i == 0:
+            return False
+    return True
     #
     # Run this command to test your implementation:
     #
@@ -189,6 +224,7 @@ def get_even(*args):
     :return:
     """
     # INSERT YOUR CODE HERE
+    return [x for x in args if x%2==0]
     #
     # Run this command to test your implementation:
     #
@@ -218,7 +254,10 @@ def check_perfect(number):
     :return:
     """
     # INSERT YOUR CODE HERE
-    #
+    divs = [x for x in range(1,number) if number%x==0]
+    if sum(divs) == number:
+        return True
+    return False
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_check_perfect
@@ -240,7 +279,7 @@ def check_palindrome(string):
     :return:
     """
     # INSERT YOUR CODE HERE
-    #
+    return string.replace(" ","") == string.replace(" ","")[::-1]
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_check_palindrome
@@ -258,7 +297,7 @@ def check_palindrome(string):
 #      | 1 | 4 | 6 | 4 | 1 |
 #
 #     Example:
-#     5 -> [[1], [1, 1], [1, 2, 1], [1, 3, 3, 1], [1, 4, 6, 4, 1]]
+#     5 -> [[1], [1, 1], [1, 2, 1], [1, 3, 3, 1], [1, 4, 6, 4, 1], [1, 5, 10, 10, 5, 1]]
 def get_pascal_rows(number):
     """
     Get the first `number` of rows of pascal triangle
@@ -267,7 +306,12 @@ def get_pascal_rows(number):
     :return:
     """
     # INSERT YOUR CODE HERE
-    #
+    output = [[] for _ in range(number)]
+    for row in range(number):
+        for i in range(row+1):
+            c = get_factorial(row)//(get_factorial(i)*get_factorial(row-i))
+            output[row].append(c)
+    return output
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_get_pascal_rows
@@ -294,10 +338,18 @@ def check_pangram(input_str, **kwargs):
     :return:
     """
     # INSERT YOUR CODE HERE
+    listofchars = "qwertyuiopasdfghjklzxcvbnm"
+    listofcharsinstr = "".join([c.lower() for c in input_str if c.isalpha()])
+    for c in kwargs.keys():
+        if kwargs[c] == False:
+            listofchars = listofchars.replace(c,"")
+            listofcharsinstr = listofcharsinstr.replace(c,"")
+    
+    return set(listofcharsinstr) == set(listofchars)
     #
     # Run this command to test your implementation:
     #
-    # pytest test_exercises.py::test_check_pangram
+    # pytest test_exercises.py::test_check_pagram
 
 
 # 15. Write a Python program that accepts a hyphen-separated sequence
@@ -313,7 +365,7 @@ def reorder_hyphen_sequence(string):
     :return:
     """
     # INSERT YOUR CODE HERE
-    #
+    return "-".join(sorted(string.split("-")))
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_reorder_hyphen_sequence
@@ -334,7 +386,10 @@ def squared_nums(without_odds=False):
     :return:
     """
     # INSERT YOUR CODE HERE
-    #
+    squared = [x**2 for x in range(1,31)]
+    if without_odds:
+        return [x for x in squared if x% 2 == 0]
+    return squared
     # Run this command to test your implementation:
     #
     # pytest test_exercises.py::test_squared_nums
@@ -357,6 +412,9 @@ def make_bold(fn):
     :return:
     """
     # INSERT YOUR CODE HERE
+    def wrap():
+        return f"<b>{fn()}</b>"
+    return wrap
 
 
 # 17.2. italic -> <i>...</i>
@@ -368,6 +426,9 @@ def make_italic(fn):
     :return:
     """
     # INSERT YOUR CODE HERE
+    def wrap():
+        return f"<i>{fn()}</i>"
+    return wrap
 
 
 # 17.3. underline -> <u>...</u>
@@ -379,11 +440,19 @@ def make_underline(fn):
     :return:
     """
     # INSERT YOUR CODE HERE
+    def wrap():
+        return f"<u>{fn()}</u>"
+    return wrap
 
 
 # 17.4. Define a function that will use the decorators created previously
 # INSERT YOUR CODE HERE
 
 # Run this command to test your decorators:
-#
+@make_bold
+@make_italic
+@make_underline
+def hello():
+    return "Hello Joao"
 # pytest test_exercises.py::test_decorators
+# python3 -m pytest test_exercises.py::test_decorators
