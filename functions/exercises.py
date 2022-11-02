@@ -323,10 +323,22 @@ def check_pangram(input_str, **kwargs):
     :param input_str:
     :return:
     """
-    # INSERT YOUR CODE HERE
-    #
-    # Run this command to test your implementation:
-    #
+    input_str = input_str.lower()
+    input_str = input_str.replace(' ', '')
+
+    count = 0
+    print(kwargs.items())
+    for key,value in kwargs.items():
+        
+        if value == False:
+            count += 1
+            input_str = input_str.replace(key, '')
+    
+    input_str = list(set(input_str))
+    print(f'Count = {count}; len = {len(input_str)}; str = {input_str}')
+    if 26 - count == len(input_str):
+        return True
+    return False
     # pytest test_exercises.py::test_check_pangram
 
 
@@ -342,10 +354,13 @@ def reorder_hyphen_sequence(string):
     :param string:
     :return:
     """
-    # INSERT YOUR CODE HERE
-    #
-    # Run this command to test your implementation:
-    #
+    word = string.split('-')
+    word.sort()
+    string = word[0]
+    for i in range(1, len(word)):
+        string += f'-{word[i]}'
+
+    return string
     # pytest test_exercises.py::test_reorder_hyphen_sequence
 
 
@@ -363,10 +378,10 @@ def squared_nums(without_odds=False):
     :param without_odds: If True Odd numbers are not returned
     :return:
     """
-    # INSERT YOUR CODE HERE
-    #
-    # Run this command to test your implementation:
-    #
+    val = [i*i for i in range(1, 31)]
+    if without_odds == True:
+        return list(filter(lambda x: x % 2 == 0, val))
+    return val
     # pytest test_exercises.py::test_squared_nums
 
 
@@ -386,7 +401,9 @@ def make_bold(fn):
     :param fn: Function to be wrapped
     :return:
     """
-    # INSERT YOUR CODE HERE
+    def wrapper():
+        aux = func()
+    return f'<b>{aux}<b>'
 
 
 # 17.2. italic -> <i>...</i>
@@ -397,7 +414,9 @@ def make_italic(fn):
     :param fn: Function to be wrapped
     :return:
     """
-    # INSERT YOUR CODE HERE
+    def wrapper():
+        aux = func()
+    return f'<i>{aux}<i>'
 
 
 # 17.3. underline -> <u>...</u>
@@ -408,11 +427,18 @@ def make_underline(fn):
     :param fn: Function to be wrapped
     :return:
     """
-    # INSERT YOUR CODE HERE
+    def wrapper():
+        aux = func()
+    return f'<u>{aux}<u>'
 
 
 # 17.4. Define a function that will use the decorators created previously
-# INSERT YOUR CODE HERE
+@exercises.make_bold
+@exercises.make_italic
+@exercises.make_underline
+def use_decorators():
+    return "Hello World!"
+    
 
 # Run this command to test your decorators:
 #
