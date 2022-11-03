@@ -4,6 +4,46 @@ Python 101 - CI Academy 2022
 Class exercise
 """
 
+import math
+
+class Triangle:
+
+    number_of_sides = 3
+
+    def __init__(self, angle1, angle2, angle3):
+        self.angle1 = angle1
+        self.angle2 = angle2
+        self.angle3 = angle3
+
+    def check_angles(self):
+        if self.angle1 + self.angle2 + self.angle3 == 180:
+            return True
+        return False
+    
+    def length_of_each_side(self, perimeter):
+
+        k = perimeter / (math.sin(self.angle1) + math.sin(self.angle2) + math.sin(self.angle3))
+        a = k * math.sin(self.angle1)
+        b = k * math.sin(self.angle2)
+        c = k * math.sin(self.angle3)
+    
+        return (a , b , c)
+
+
+class Equilateral(Triangle):
+
+    angle = 60
+
+    def __init__(self):
+        self.angle1 = self.angle
+        self.angle2 = self.angle
+        self.angle3 = self.angle
+
+    
+    def area_of_triangle(self, length):
+        return length * (length ** 2 * math.sqrt(3) / 4) / 2
+
+
 
 # 1.1. Create a class, `Triangle`.
 #

@@ -318,7 +318,7 @@ def get_pascal_rows(number):
         previous_row = res_arr[-1]
         
         for i in range(len(prev_row)-1):
-            current_row.append(prev_row[i] + prev_row[i +1 ])~
+            current_row.append(prev_row[i] + prev_row[i +1 ])
 
         current_row += [1]
         res_array.append(current_row)
