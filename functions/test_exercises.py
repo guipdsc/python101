@@ -10,7 +10,10 @@ import exercises
 
 @pytest.mark.parametrize("numbers,result", [([1, 2, 3], 3), ([5, 2, 3], 5)])
 def test_get_max_of_three(numbers, result):
-    assert exercises.get_max_of_three(numbers[0], numbers[1], numbers[2]) == result
+    assert (
+        exercises.get_max_of_three(numbers[0], numbers[1], numbers[2])
+        == result
+    )
 
 
 @pytest.mark.parametrize(
@@ -22,7 +25,12 @@ def test_get_sum_of_list(numbers, result):
 
 @pytest.mark.parametrize(
     "numbers,result",
-    [([1, 2, 3], 6), ([5, 2, 3], 30), ([8, 2, 3, 0, 7], 0), ([8, 2, 3, -1, 7], -336)],
+    [
+        ([1, 2, 3], 6),
+        ([5, 2, 3], 30),
+        ([8, 2, 3, 0, 7], 0),
+        ([8, 2, 3, -1, 7], -336),
+    ],
 )
 def test_get_prod_of_list(numbers, result):
     assert exercises.get_prod_of_list(numbers) == result
@@ -31,13 +39,19 @@ def test_get_prod_of_list(numbers, result):
 
 @pytest.mark.parametrize(
     "string,result",
-    [("ABBA", "ABBA"), ("1234abcd", "dcba4321"), ("Hello World!", "!dlroW olleH")],
+    [
+        ("ABBA", "ABBA"),
+        ("1234abcd", "dcba4321"),
+        ("Hello World!", "!dlroW olleH"),
+    ],
 )
 def test_get_reversed_string(string, result):
     assert exercises.get_reversed_string(string) == result
 
 
-@pytest.mark.parametrize("numbers,result", [(5, 120), (10, 3628800), (-3, None)])
+@pytest.mark.parametrize(
+    "numbers,result", [(5, 120), (10, 3628800), (-3, None)]
+)
 def test_get_factorial(numbers, result):
     if result:
         assert exercises.get_factorial(numbers) == result
@@ -46,14 +60,23 @@ def test_get_factorial(numbers, result):
             exercises.get_factorial(numbers)
 
 
-@pytest.mark.parametrize("numbers,result", [([5, 4, 10], True), ([-10, -3, 10], False)])
+@pytest.mark.parametrize(
+    "numbers,result", [([5, 4, 10], True), ([-10, -3, 10], False)]
+)
 def test_check_num_in_range(numbers, result):
-    assert exercises.check_num_in_range(numbers[0], numbers[1], numbers[2]) == result
+    assert (
+        exercises.check_num_in_range(numbers[0], numbers[1], numbers[2])
+        == result
+    )
 
 
 @pytest.mark.parametrize(
     "string,result",
-    [("ABBA", (4, 0)), ("The quick Brow Fox", (3, 12)), ("Hello World!", (2, 8))],
+    [
+        ("ABBA", (4, 0)),
+        ("The quick Brow Fox", (3, 12)),
+        ("Hello World!", (2, 8)),
+    ],
 )
 def test_get_num_cases(string, result):
     assert exercises.get_num_cases(string) == result
@@ -67,7 +90,9 @@ def test_get_num_cases(string, result):
     ],
 )
 def test_get_unique_item_list(original_list, result):
-    assert exercises.get_unique_item_list(original_list).sort() == result.sort()
+    assert (
+        exercises.get_unique_item_list(original_list).sort() == result.sort()
+    )
 
 
 @pytest.mark.parametrize(
@@ -115,7 +140,10 @@ def test_get_pascal_rows():
 
 @pytest.mark.parametrize(
     "sentence,result",
-    [("The quick brown fox jumps over the lazy dog", True), ("not all", False)],
+    [
+        ("The quick brown fox jumps over the lazy dog", True),
+        ("not all", False),
+    ],
 )
 def test_check_pangram(sentence, result):
     assert exercises.check_pangram(sentence) == result
