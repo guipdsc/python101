@@ -65,20 +65,13 @@ def get_prod_of_list(num_list, absolute=False):
     :param absolute: Use absulute values
     :return:
     """
-    def prod_of_list_no_abs(num_list):
-        res=1
-        for i in num_list:
-            res*=i
-        return res
-    def prod_of_list_with_abs(num_list):
-        res=1
-        for i in num_list:
+    res=1
+    for i in num_list:
+        if (absolute):
             res*=abs(i)
-        return res
-    if (absolute):
-        return prod_of_list_with_abs(num_list)
-    else:
-        return prod_of_list_no_abs(num_list)
+        else:
+            res*=i
+    return res
     # INSERT YOUR CODE HERE
     #
     # Run this command to test your implementation:
@@ -165,11 +158,9 @@ def get_num_cases(string):
     up=0
     down=0
     for i in range(len(string)):
-        if (not isalpha(string[i])):
-            continue
-        if (isupper(string[i])):
+        if isupper(string[i]):
             up+=1
-        else:
+        elif islower(string[i]):
             down+=1
     return(up,down)
     # INSERT YOUR CODE HERE
@@ -323,22 +314,13 @@ def get_pascal_rows(number):
     :param number:
     :return:
     """
-    def factorial(n):
-        if (n == 0):
-            return 1
-        if (n < 0):
-            raise NotImplementedError("Negative number!")
-        res = 1
-        for i in range(1,n+1):
-            res*=i
-        return res
-    def nCr(m,r):
-        return ((factorial(m))//((factorial(r))*(factorial(m-r))))
+    def n_Combinations_of_r(m,r):
+        return ((get_factorial(m))//((get_factorial(r))*(get_factorial(m-r))))
     resFinal = [[1],[1,1]]
     for i in range(2,number):
         temp = [1]
         for j in range(1,i+1):
-            temp.append(nCr(i,j))
+            temp.append(n_Combinations_of_r(i,j))
         resFinal.append(temp)
     return resFinal
     # INSERT YOUR CODE HERE
@@ -398,9 +380,7 @@ def reorder_hyphen_sequence(string):
     :param string:
     :return:
     """
-    string = string.split("-")
-    string.sort()
-    return "-".join(string)
+    return "-".join(sorted(string.split("-")))
     # INSERT YOUR CODE HERE
     #
     # Run this command to test your implementation:
@@ -422,10 +402,10 @@ def squared_nums(without_odds=False):
     :param without_odds: If True Odd numbers are not returned
     :return:
     """
+    sqr_nums = [n**2 for n in range(1, 31)]
     if without_odds:
-        return [n**2 for n in range(1,31) if n%2==0]
-    else:
-        return[n**2 for n in range(1,31)]
+        return list(filter((lambda x: x%2==0), sqr_nums))
+    return sqr_nums
     # INSERT YOUR CODE HERE
     #
     # Run this command to test your implementation:
