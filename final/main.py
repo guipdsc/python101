@@ -1,6 +1,7 @@
 from gameplay import *
 import os
 from time import sleep
+from sys import *
 
 def mapping_hands(hand):
     if hand == 0:
@@ -16,6 +17,37 @@ def clear_screen(wait):
         print(f'\n(Screen will be cleared in {wait} seconds)')
         sleep(wait) # Waiting for 4 seconds to clear the screen
         os.system('clear') # Clearing the Screen
+
+
+def get_older_name():
+    #to be done
+    return 'teste'
+
+def aplly_name(args):
+    if args['name'] != False:
+        return args['name']
+
+    print(f'Before start playing choose your name:')
+    name =  input()
+
+    if name == '':
+        name = get_older_name()
+
+    return name
+
+def read_args():
+    args = list(argv)
+    arg = {'name': False, 'score': False}
+
+    for a in range(1, len(args)):
+        if args[a].isnumeric() and arg['score'] == False:
+            arg['score'] = int(args[a])
+            if arg['score'] > 100:
+                arg['score'] = 100
+        elif arg['name'] == False:
+            arg['name'] = args[a]
+
+    return arg
 
 def play(player, computer):
     win = player.show_winner(computer)
@@ -54,6 +86,9 @@ def read_input():
 
 player = Gameplay()
 computer = Gameplay()
+args = read_args()
+name = aplly_name(args)
+print(f"""Your name is: {name} and the max score is: {args['score']}""")
 
 while True:
     print('Welcome:')
