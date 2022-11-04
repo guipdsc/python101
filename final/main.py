@@ -2,7 +2,23 @@ from gameplay import *
 import os
 from time import sleep
 from sys import *
+#from names import *
+#from scores import *
 
+def mapping_hands(hand):
+    if hand == 0:
+        return 'Rock'
+    elif hand == 1:
+        return 'Paper'
+    elif hand == 2:
+        return 'Scizor'
+    else:
+        'undefined hand error, please correct code'
+
+def clear_screen(wait):
+        print(f'\n(Screen will be cleared in {wait} seconds)')
+        sleep(wait) # Waiting for 4 seconds to clear the screen
+        os.system('clear') # Clearing the Screen
 
 
 def get_older_name():
@@ -48,30 +64,39 @@ def read_args():
 
     return arg
 
+
+def check_max_score_reached(pcScore,myScore, maxScore):
+    if maxScore != False:
+        if pcScore == maxScore:
+            print('Max score reached. You have lost. Sad face!')
+            clear_screen(10)
+            exit()
+        elif myScore == maxScore:
+            print('Max score reached. You have won. Congratulations!')
+            clear_screen(10)
+            exit()
+
 def play(player, computer):
     win = player.show_winner(computer)
     my_hand = player.show_play()
     pc_hand = computer.show_play()
     if win == 'W':
-        print(f'You won!!! Your hand ({my_hand}) is stronger then the computers ({pc_hand})')
-        sleep(3) # Waiting for 4 seconds to clear the screen
-        os.system('clear') # Clearing the Screen
+        print(f'You won!!! Your hand ({mapping_hands(my_hand)}) is stronger then the computers ({mapping_hands(pc_hand)})')
+        clear_screen(5)
     elif win == 'L':
-        print(f'You lost!!!')
-        sleep(3) # Waiting for 4 seconds to clear the screen
-        os.system('clear') # Clearing the Screen
+        print(f'You lost!!! Your hand ({mapping_hands(my_hand)}) is weaker then the computers ({mapping_hands(pc_hand)})')
+        clear_screen(5)
     else:
-        print(f'You draw!!!')
-        sleep(3) # Waiting for 4 seconds to clear the screen
-        os.system('clear') # Clearing the Screen
+        print(f'You draw!!! Your hand ({mapping_hands(my_hand)}) is equal to the computers ({mapping_hands(pc_hand)})')
+        clear_screen(5)
+    return win
 
 def instructions():
     print("\nWinning Rules of the Rock paper scissor game as follows: \n"
                                     +"rock vs paper->paper wins \n"
                                     + "rock vs scissor->rock wins \n"
                                     +"paper vs scissor->scissor wins \n")
-    sleep(10) # Waiting for 4 seconds to clear the screen
-    os.system('clear') # Clearing the Screen
+    clear_screen(10)
 
 
 def read_input():
@@ -85,22 +110,32 @@ def read_input():
         else:
             print('please choose from one of the valid options')
 
+def updateScore(pcScore,myScore,winner):
 
+    if winner == 'W':
+        myScore += 1
+    elif winner == 'L':           
+        pcScore += 1
+    print(f'PC Score: {pcScore}\nMy Score: {myScore}\n')
+    return pcScore, myScore
 
+pcScore = 0
+myScore = 0
 player = Gameplay()
 computer = Gameplay()
 args = read_args()
 name = aplly_name(args)
-print(f"""Your name is: {name} and the max score is: {args['score']}""")
+print(f"""Your name is: {name} and the max score is: {args['score']}\n""")
 
 while True:
-    print('Welcome:')
     option = read_input()
     computer.set_play_random()
 
     if option == 0 or option == 1 or option == 2:
         player.set_play(option)
-        play(player, computer)
+        winner = play(player, computer)
+        pcScore, myScore = updateScore(pcScore,myScore,winner)
+        check_max_score_reached(pcScore, myScore, args['score'])
     elif option == 3:
         instructions()
     else:
@@ -109,13 +144,9 @@ while True:
 
 
 '''
-clears
-mostrar pontuacao a cada jogada
-alterar 0 1 2 3 para nomes starts with
-
-nomes e ler args
-mostrar a nossa jogada
-funcao q fecha o jogo se score max for atingido
-
+tratar show resultado a cada iteracao
+classes
+funcao startswith
+testes
 '''
 
