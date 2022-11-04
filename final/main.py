@@ -2,31 +2,41 @@ from gameplay import *
 import os
 from time import sleep
 
+def mapping_hands(hand):
+    if hand == 0:
+        return 'Rock'
+    elif hand == 1:
+        return 'Paper'
+    elif hand == 2:
+        return 'Scizor'
+    else:
+        'undefined hand error, please correct code'
+
+def clear_screen(wait):
+        print(f'\n(Screen will be cleared in {wait} seconds)')
+        sleep(wait) # Waiting for 4 seconds to clear the screen
+        os.system('clear') # Clearing the Screen
 
 def play(player, computer):
     win = player.show_winner(computer)
     my_hand = player.show_play()
     pc_hand = computer.show_play()
     if win == 'W':
-        print(f'You won!!! Your hand ({my_hand}) is stronger then the computers ({pc_hand})')
-        sleep(3) # Waiting for 4 seconds to clear the screen
-        os.system('clear') # Clearing the Screen
+        print(f'You won!!! Your hand ({mapping_hands(my_hand)}) is stronger then the computers ({mapping_hands(pc_hand)})')
+        clear_screen(5)
     elif win == 'L':
-        print(f'You lost!!!')
-        sleep(3) # Waiting for 4 seconds to clear the screen
-        os.system('clear') # Clearing the Screen
+        print(f'You lost!!! Your hand ({mapping_hands(my_hand)}) is weaker then the computers ({mapping_hands(pc_hand)})')
+        clear_screen(5)
     else:
-        print(f'You draw!!!')
-        sleep(3) # Waiting for 4 seconds to clear the screen
-        os.system('clear') # Clearing the Screen
+        print(f'You draw!!! Your hand ({mapping_hands(my_hand)}) is equal to the computers ({mapping_hands(pc_hand)})')
+        clear_screen(5)
 
 def instructions():
     print("\nWinning Rules of the Rock paper scissor game as follows: \n"
                                     +"rock vs paper->paper wins \n"
                                     + "rock vs scissor->rock wins \n"
                                     +"paper vs scissor->scissor wins \n")
-    sleep(10) # Waiting for 4 seconds to clear the screen
-    os.system('clear') # Clearing the Screen
+    clear_screen(10)
 
 
 def read_input():
