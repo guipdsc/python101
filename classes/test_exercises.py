@@ -1,4 +1,5 @@
 import pytest
+from pytest import approx
 import exercises
 
 ex_tri = (60,60,60)
@@ -33,7 +34,7 @@ def test_tri_check_angles(triangle,result):
     "triangle,per,result",[(exercises.Triangle(*ex_tri),3,[1,1,1]),(exercises.Triangle(*ex_tri2),4.73205,[1.732,2,1]),(exercises.Triangle(*ex_tri3),2.87939,[0.742,1.137,1])]
 )
 def test_calc_tri(triangle,per,result):
-    assert triangle.calc_tri(per) == result
+    assert triangle.calculate_triangle_sides(per) == approx(result)
 
 
 def test_equi_tri():
@@ -44,4 +45,4 @@ def test_equi_tri():
     "side,result",[(1,0.433),(2,1.732),(3,3.897)]
 )
 def test_equi_area_calc(side,result):
-    assert exercises.Equilateral().area_calc(side) == result
+    assert exercises.Equilateral().area_calc(side) == approx(result)
