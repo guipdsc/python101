@@ -125,7 +125,7 @@ player = Gameplay()
 computer = Gameplay()
 args = read_args()
 name = aplly_name(args)
-print(f"""Your name is: {name} and the max score is: {args['score']}\n""")
+print(f"""Your name is: {name} and the max score is: {args['score']}""")
 
 while True:
     option = read_input()
