@@ -4,6 +4,9 @@ Python 101 - CI Academy 2022
 Function exercises
 """
 
+from math import factorial
+
+
 
 # 1. Write a Python function to find the Max of three numbers
 #
@@ -17,10 +20,19 @@ def get_max_of_three(x, y, z):
     :param z:
     :return:
     """
-    # INSERT YOUR CODE HERE
-    #
-    # Run this command to test your implementation:
-    #
+    #x = 10 if a > b else 11
+
+    if  x > y:
+        if z > x:
+            return z
+        else:
+            return x
+    else:
+        if z > y:
+            return z
+        else:
+            return y
+
     # pytest test_exercises.py::test_get_max_of_three
 
 
@@ -34,10 +46,7 @@ def get_sum_of_list(num_list):
     :param num_list: List of numbers
     :return:
     """
-    # INSERT YOUR CODE HERE
-    #
-    # Run this command to test your implementation:
-    #
+    return sum(num_list)
     # pytest test_exercises.py::test_get_sum_of_list
 
 
@@ -57,10 +66,15 @@ def get_prod_of_list(num_list, absolute=False):
     :param absolute: Use absulute values
     :return:
     """
-    # INSERT YOUR CODE HERE
-    #
-    # Run this command to test your implementation:
-    #
+    if absolute == True:
+        num_list =  [abs(ele) for ele in num_list]
+
+    aux = 1
+
+    for num in num_list:
+        aux = aux * num
+
+    return aux
     # pytest test_exercises.py::test_get_prod_of_list
 
 
@@ -74,10 +88,7 @@ def get_reversed_string(string):
     :param string: String to be reversed
     :return:
     """
-    # INSERT YOUR CODE HERE
-    #
-    # Run this command to test your implementation:
-    #
+    return string [::-1]
     # pytest test_exercises.py::test_get_reversed_string
 
 
@@ -93,10 +104,13 @@ def get_factorial(number):
     :return:
     :raises NotImplementedError: If number is negative
     """
-    # INSERT YOUR CODE HERE
-    #
-    # Run this command to test your implementation:
-    #
+    if number < 0:
+        raise NotImplementedError
+    fact = 1
+    for i in range(1,number+1): 
+        fact = fact * i 
+
+    return fact
     # pytest test_exercises.py::test_get_factorial
 
 
@@ -112,10 +126,10 @@ def check_num_in_range(number, range_min, range_max):
     :param range_max:
     :return:
     """
-    # INSERT YOUR CODE HERE
-    #
-    # Run this command to test your implementation:
-    #
+    if number > range_min and number < range_max:
+        return True
+    else:
+        return False
     # pytest test_exercises.py::test_check_num_in_range
 
 
@@ -130,10 +144,7 @@ def get_num_cases(string):
     :param string:
     :return:
     """
-    # INSERT YOUR CODE HERE
-    #
-    # Run this command to test your implementation:
-    #
+    return [sum(1 for c in string if c.islower()), sum(1 for c in string if c.isupper())]
     # pytest test_exercises.py::test_get_num_cases
 
 
@@ -148,10 +159,7 @@ def get_unique_item_list(original_list):
     :param original_list:
     :return:
     """
-    # INSERT YOUR CODE HERE
-    #
-    # Run this command to test your implementation:
-    #
+    return list(tuple(original_list))
     # pytest test_exercises.py::test_get_unique_item_list
 
 
@@ -171,10 +179,14 @@ def check_prime(number):
     :param number:
     :return:
     """
-    # INSERT YOUR CODE HERE
-    #
-    # Run this command to test your implementation:
-    #
+    if number > 1:
+        for i in range(2, int(number/2)+1):
+            if number % i == 0:
+                return False
+        else:
+            return True
+    else:
+        return True
     # pytest test_exercises.py::test_check_prime
 
 
@@ -188,10 +200,11 @@ def get_even(*args):
     :param num_list:
     :return:
     """
-    # INSERT YOUR CODE HERE
-    #
-    # Run this command to test your implementation:
-    #
+    new_list = []
+    for i in args:
+        if i % 2 == 0:
+            new_list.append(i)
+    return new_list
     # pytest test_exercises.py::test_get_even
 
 
@@ -217,10 +230,15 @@ def check_perfect(number):
     :param number:
     :return:
     """
-    # INSERT YOUR CODE HERE
-    #
-    # Run this command to test your implementation:
-    #
+    aux = 1
+    if number > 1:
+        for i in range(2, int(number/2)+1):
+            if number % i == 0:
+                aux += i
+        if aux == number:
+            return True
+
+    return False
     # pytest test_exercises.py::test_check_perfect
 
 
@@ -239,10 +257,9 @@ def check_palindrome(string):
     :param string:
     :return:
     """
-    # INSERT YOUR CODE HERE
-    #
-    # Run this command to test your implementation:
-    #
+    if string.replace(' ', '') == string.replace(' ', '')[::-1]:
+        return True
+    return False
     # pytest test_exercises.py::test_check_palindrome
 
 
@@ -256,9 +273,17 @@ def check_palindrome(string):
 #          | 1 | 2 | 1 |
 #        | 1 | 3 | 3 | 1 |
 #      | 1 | 4 | 6 | 4 | 1 |
+#    | 1 | 5 | 10| 10| 5 | 1 |    
+
+#      | 1 |                        0   0
+#      | 1 | 1 |                    1   1
+#      | 1 | 2 | 1 |                2   1
+#      | 1 | 3 | 3 | 1 |            3   2
+#      | 1 | 4 | 6 | 4 | 1 |        4   2
+#      | 1 | 5 | 10| 10| 5 | 1 |    5   3
 #
 #     Example:
-#     5 -> [[1], [1, 1], [1, 2, 1], [1, 3, 3, 1], [1, 4, 6, 4, 1]]
+#     5 -> [[1], [1, 2, 1], [1, 3, 3, 1], [1, 4, 6, 4, 1], [1, 5, 10, 10, 5, 1]]
 def get_pascal_rows(number):
     """
     Get the first `number` of rows of pascal triangle
@@ -266,10 +291,16 @@ def get_pascal_rows(number):
     :param number:
     :return:
     """
-    # INSERT YOUR CODE HERE
-    #
-    # Run this command to test your implementation:
-    #
+    val = []
+    for i in range(number):
+        aux = []
+        for j in range(i+1):
+    
+            # nCr = n!/((n-r)!*r!)
+            aux.append(factorial(i)//(factorial(j)*factorial(i-j)))
+        val.append(aux)
+    
+    return val
     # pytest test_exercises.py::test_get_pascal_rows
 
 
@@ -293,10 +324,22 @@ def check_pangram(input_str, **kwargs):
     :param input_str:
     :return:
     """
-    # INSERT YOUR CODE HERE
-    #
-    # Run this command to test your implementation:
-    #
+    input_str = input_str.lower()
+    input_str = input_str.replace(' ', '')
+
+    count = 0
+    print(kwargs.items())
+    for key,value in kwargs.items():
+        
+        if value == False:
+            count += 1
+            input_str = input_str.replace(key, '')
+    
+    input_str = list(set(input_str))
+    print(f'Count = {count}; len = {len(input_str)}; str = {input_str}')
+    if 26 - count == len(input_str):
+        return True
+    return False
     # pytest test_exercises.py::test_check_pangram
 
 
@@ -312,10 +355,13 @@ def reorder_hyphen_sequence(string):
     :param string:
     :return:
     """
-    # INSERT YOUR CODE HERE
-    #
-    # Run this command to test your implementation:
-    #
+    word = string.split('-')
+    word.sort()
+    string = word[0]
+    for i in range(1, len(word)):
+        string += f'-{word[i]}'
+
+    return string
     # pytest test_exercises.py::test_reorder_hyphen_sequence
 
 
@@ -333,10 +379,10 @@ def squared_nums(without_odds=False):
     :param without_odds: If True Odd numbers are not returned
     :return:
     """
-    # INSERT YOUR CODE HERE
-    #
-    # Run this command to test your implementation:
-    #
+    val = [i*i for i in range(1, 31)]
+    if without_odds == True:
+        return list(filter(lambda x: x % 2 == 0, val))
+    return val
     # pytest test_exercises.py::test_squared_nums
 
 
@@ -356,7 +402,10 @@ def make_bold(fn):
     :param fn: Function to be wrapped
     :return:
     """
-    # INSERT YOUR CODE HERE
+    aux = ''
+    def wrapper():
+        aux = func()
+    return f'<b>{aux}<b>'
 
 
 # 17.2. italic -> <i>...</i>
@@ -367,7 +416,10 @@ def make_italic(fn):
     :param fn: Function to be wrapped
     :return:
     """
-    # INSERT YOUR CODE HERE
+    aux = ''
+    def wrapper():
+        aux = func()
+    return f'<i>{aux}<i>'
 
 
 # 17.3. underline -> <u>...</u>
@@ -378,11 +430,19 @@ def make_underline(fn):
     :param fn: Function to be wrapped
     :return:
     """
-    # INSERT YOUR CODE HERE
+    aux = ''
+    def wrapper():
+        aux = func()
+    return f'<u>{aux}<u>'
 
 
 # 17.4. Define a function that will use the decorators created previously
-# INSERT YOUR CODE HERE
+@make_bold
+@make_italic
+@make_underline
+def use_decorators():
+    return "Hello World!"
+    
 
 # Run this command to test your decorators:
 #
